@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikbang : Strategic Briefing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #F97316; /* Orange-500 */
+            color: #F97316;
+            font-weight: 700;
+        }
+        .er-card {
+            transition: all 0.3s ease;
+        }
+        .er-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-bread-slice"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Sikbang <span class="text-orange-500">2.0</span></h1>
+                    <p class="text-xs text-slate-400">O4O Hyper-Local Platform Strategy</p>
+                </div>
+            </div>
+            <div class="text-right hidden md:block">
+                <span class="text-xs text-slate-400">Prepared by</span>
+                <p class="font-semibold text-sm">Jarvis & Global Trader</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white shadow-sm sticky top-16 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto space-x-6 text-sm md:text-base">
+                <button onclick="switchTab('market')" id="tab-market" class="tab-btn active py-4 px-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-chart-pie mr-2"></i>시장 및 경쟁사 분석
+                </button>
+                <button onclick="switchTab('strategy')" id="tab-strategy" class="tab-btn py-4 px-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-chess-knight mr-2"></i>비즈니스 모델
+                </button>
+                <button onclick="switchTab('erp')" id="tab-erp" class="tab-btn py-4 px-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-database mr-2"></i>시스템 구조 (ERP)
+                </button>
+                <button onclick="switchTab('finance')" id="tab-finance" class="tab-btn py-4 px-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-coins mr-2"></i>수익 시뮬레이션
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+
+        <!-- 1. Market Analysis Section -->
+        <section id="market-section" class="space-y-8 animate-fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Competitor Analysis</h2>
+                    <p class="text-slate-500">기존 플레이어의 약점과 식빵의 기회요인</p>
+                </div>
+                <div class="mt-4 md:mt-0 bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-bold">
+                    Target: 3040 주부 & 1인 가구
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Competitor 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-slate-700">콘텐츠/팬덤형</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded">감자마켓 등</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i> <span>강력한 스토리텔링 & 팬덤</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-xmark text-red-400 mt-1 mr-2"></i> <span>단일 상품 의존도 높음</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-xmark text-red-400 mt-1 mr-2"></i> <span>높은 배송비 부담</span></li>
+                    </ul>
+                </div>
+
+                <!-- Competitor 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-slate-700">인적 네트워크형</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded">장봐주는언니 등</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i> <span>높은 지역 충성도 (Community)</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-xmark text-red-400 mt-1 mr-2"></i> <span>사람에 의존 (확장성 한계)</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-xmark text-red-400 mt-1 mr-2"></i> <span>수기 주문 등 시스템 부재</span></li>
+                    </ul>
+                </div>
+
+                <!-- Sikbang Strategy -->
+                <div class="bg-slate-800 text-white p-6 rounded-xl shadow-lg ring-2 ring-orange-500 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">OUR STRATEGY</div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-orange-400">Sikbang (식빵)</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">시스템 기반 O4O</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2"></i> <span class="font-semibold text-white">무인 24h 거점 (인건비 0)</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2"></i> <span class="font-semibold text-white">배송비 Free (선주문 픽업)</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2"></i> <span class="font-semibold text-white">ERP 자동 재고/수요 예측</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Strategy Section -->
+        <section id="strategy-section" class="hidden space-y-8 animate-fade-in">
+            <h2 class="text-2xl font-bold text-slate-800">Business Model Flow</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                    
+                    <!-- Step 1 -->
+                    <div class="text-center md:w-1/4">
+                        <div class="w-20 h-20 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-600 text-3xl mb-4 shadow-sm">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h4 class="font-bold text-lg">1. APP 주문 (Pre-order)</h4>
+                        <p class="text-sm text-slate-500 mt-2">출근길/점심시간에 주문<br>타임세일 알림 푸시</p>
+                    </div>
+
+                    <div class="hidden md:block text-slate-300 text-2xl"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="block md:hidden text-slate-300 text-2xl transform rotate-90"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 2 -->
+                    <div class="text-center md:w-1/4">
+                        <div class="w-20 h-20 mx-auto bg-purple-50 rounded-full flex items-center justify-center text-purple-600 text-3xl mb-4 shadow-sm">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h4 class="font-bold text-lg">2. Just-in-Time 물류</h4>
+                        <p class="text-sm text-slate-500 mt-2">주문량만큼 거점 배송<br>재고 리스크 최소화</p>
+                    </div>
+
+                    <div class="hidden md:block text-slate-300 text-2xl"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="block md:hidden text-slate-300 text-2xl transform rotate-90"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 3 -->
+                    <div class="text-center md:w-1/4">
+                        <div class="w-20 h-20 mx-auto bg-orange-50 rounded-full flex items-center justify-center text-orange-600 text-3xl mb-4 shadow-sm">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h4 class="font-bold text-lg">3. QR 픽업 (Pickup)</h4>
+                        <p class="text-sm text-slate-500 mt-2">퇴근길 무인 매장 방문<br>QR로 나만의 락커 Open</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 p-4 bg-slate-50 rounded-lg border-l-4 border-orange-500">
+                    <h5 class="font-bold text-slate-800"><i class="fa-solid fa-lightbulb text-orange-500 mr-2"></i>Jarvis's Strategy Note</h5>
+                    <p class="text-sm text-slate-600 mt-1">
+                        이 모델의 핵심은 <strong>"쇼핑몰이 아닌 물류 거점"</strong>이라는 인식입니다. 고객에게는 '배송비 없는 우리 집 두 번째 냉장고'로 포지셔닝해야 합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ERP System Section -->
+        <section id="erp-section" class="hidden space-y-8 animate-fade-in">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-slate-800">ERP Data Structure</h2>
+                <button class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition">
+                    <i class="fa-solid fa-download mr-1"></i> Schema Export
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Core Data -->
+                <div class="col-span-1 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Master Data</h3>
+                    <!-- Product Table -->
+                    <div class="er-card bg-white p-4 rounded-lg border-t-4 border-blue-500 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Products</h4>
+                            <i class="fa-solid fa-tags text-blue-300"></i>
+                        </div>
+                        <div class="text-xs text-slate-500 space-y-1 font-mono">
+                            <p>PK : product_id</p>
+                            <p>name, price, category</p>
+                            <p class="text-red-500 font-bold">is_preorder_only (Boolean)</p>
+                            <p class="text-blue-600">expiry_hours (Time)</p>
+                        </div>
+                    </div>
+                    <!-- User Table -->
+                    <div class="er-card bg-white p-4 rounded-lg border-t-4 border-blue-500 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Users</h4>
+                            <i class="fa-solid fa-users text-blue-300"></i>
+                        </div>
+                        <div class="text-xs text-slate-500 space-y-1 font-mono">
+                            <p>PK : user_id</p>
+                            <p>phone (Identifier)</p>
+                            <p>preferred_store_id</p>
+                            <p class="text-purple-600">access_qr_token</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logic Core -->
+                <div class="col-span-1 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Inventory & Space Logic</h3>
+                    <!-- Storage Units -->
+                    <div class="er-card bg-white p-4 rounded-lg border-t-4 border-purple-500 shadow-sm relative">
+                        <!-- Connector Visual -->
+                        <div class="absolute top-1/2 -left-4 w-4 h-0.5 bg-slate-300 hidden md:block"></div>
+                        
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Storage_Units</h4>
+                            <i class="fa-solid fa-dungeon text-purple-300"></i>
+                        </div>
+                        <div class="text-xs text-slate-500 space-y-1 font-mono">
+                            <p>PK : unit_id (Locker#)</p>
+                            <p>store_id (FK)</p>
+                            <p class="text-purple-600 font-bold">type (Fridge/Freezer/Shelf)</p>
+                            <p>status (Occupied/Empty)</p>
+                        </div>
+                    </div>
+                    <!-- Real-time Inventory -->
+                    <div class="er-card bg-white p-4 rounded-lg border-t-4 border-purple-500 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Inventory</h4>
+                            <i class="fa-solid fa-boxes-stacked text-purple-300"></i>
+                        </div>
+                        <div class="text-xs text-slate-500 space-y-1 font-mono">
+                            <p>product_id (FK)</p>
+                            <p>storage_unit_id (FK)</p>
+                            <p>quantity</p>
+                            <p class="text-red-500 font-bold">expiration_date (Auto-Check)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- O4O Transaction -->
+                <div class="col-span-1 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Transaction</h3>
+                    <!-- Orders -->
+                    <div class="er-card bg-white p-4 rounded-lg border-t-4 border-green-500 shadow-sm relative">
+                         <!-- Connector Visual -->
+                         <div class="absolute top-1/2 -left-4 w-4 h-0.5 bg-slate-300 hidden md:block"></div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Orders</h4>
+                            <i class="fa-solid fa-cart-shopping text-green-300"></i>
+                        </div>
+                        <div class="text-xs text-slate-500 space-y-1 font-mono">
+                            <p>PK : order_id</p>
+                            <p>user_id, store_id</p>
+                            <p>order_type (App/Kiosk)</p>
+                            <p>status (Paid/Picked_up)</p>
+                        </div>
+                    </div>
+                    <!-- Pickup Assignments -->
+                    <div class="er-card bg-slate-800 text-white p-4 rounded-lg border-t-4 border-orange-500 shadow-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold text-orange-400">Pickup_Assign</h4>
+                            <i class="fa-solid fa-key text-orange-400"></i>
+                        </div>
+                        <div class="text-xs text-slate-300 space-y-1 font-mono">
+                            <p>order_id (FK)</p>
+                            <p>storage_unit_id (FK)</p>
+                            <p class="text-yellow-400 font-bold">one_time_qr_token</p>
+                            <p>pickup_deadline</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Financial Simulation Section -->
+        <section id="finance-section" class="hidden space-y-6 animate-fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Monthly P&L Simulator</h2>
+                    <p class="text-sm text-slate-500">10평 무인 매장 1개 기준 (단위: 원)</p>
+                </div>
+                
+                <!-- Toggle Switch -->
+                <div class="flex items-center bg-slate-100 rounded-full p-1 mt-4 md:mt-0">
+                    <button onclick="updateChart('bear')" id="btn-bear" class="px-6 py-2 rounded-full text-sm font-bold transition-all bg-white text-slate-700 shadow-sm">
+                        🐻 Bear Case (보수적)
+                    </button>
+                    <button onclick="updateChart('bull')" id="btn-bull" class="px-6 py-2 rounded-full text-sm font-bold transition-all text-slate-500 hover:text-slate-800">
+                        🐂 Bull Case (성장)
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- KPI Cards -->
+                <div class="md:col-span-1 space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <p class="text-sm text-slate-400">Total Revenue (월 매출)</p>
+                        <h3 id="display-revenue" class="text-2xl font-bold text-slate-800">2,040만 원</h3>
+                        <p id="display-growth" class="text-xs text-slate-400 mt-1">일 평균 68만 원</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500">
+                        <p class="text-sm text-slate-400">Total Cost (월 비용)</p>
+                        <h3 id="display-cost" class="text-2xl font-bold text-slate-800">1,708만 원</h3>
+                        <p class="text-xs text-slate-400 mt-1">원가(70%) + 임대료 + 운영비</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg border-l-4 border-green-500">
+                        <p class="text-sm text-slate-400">Net Profit (영업이익)</p>
+                        <h3 id="display-profit" class="text-3xl font-bold text-green-400">332만 원</h3>
+                        <p id="display-margin" class="text-sm text-white mt-1 bg-green-600 inline-block px-2 rounded">마진율 16.2%</p>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                        <h4 class="font-bold text-orange-800 text-sm">손익분기점 (BEP)</h4>
+                        <p class="text-2xl font-bold text-orange-600">833만 원</p>
+                        <p class="text-xs text-orange-700">일 매출 28만 원 달성 시 흑자 전환</p>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200 relative">
+                    <h3 class="font-bold text-slate-700 mb-4">Revenue Breakdown</h3>
+                    <div class="h-64 md:h-80">
+                        <canvas id="profitChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-8">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 Sikbang Project. Confidential Strategy Report.</p>
+            <p class="mt-2 text-xs">Powered by Jarvis AI Strategy Engine</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Data Models ---
+        const scenarios = {
+            bear: {
+                revenue: 20400000,
+                cost: 17080000,
+                profit: 3320000,
+                revenue_pickup: 15000000,
+                revenue_walkin: 5400000,
+                growth_text: "일 평균 68만 원",
+                margin: "16.2%"
+            },
+            bull: {
+                revenue: 46500000,
+                cost: 35750000,
+                profit: 10750000,
+                revenue_pickup: 37500000,
+                revenue_walkin: 9000000,
+                growth_text: "일 평균 155만 원 (성장기 진입)",
+                margin: "23.1%"
+            }
+        };
+
+        // --- Chart Config ---
+        let profitChart;
+        
+        function initChart() {
+            const ctx = document.getElementById('profitChart').getContext('2d');
+            profitChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['선주문 픽업 매출', '현장 판매 매출', '상품 원가', '고정비용', '영업 이익'],
+                    datasets: [{
+                        label: '금액 (단위: 만원)',
+                        data: [1500, 540, 1428, 280, 332],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)', // Blue
+                            'rgba(96, 165, 250, 0.8)', // Light Blue
+                            'rgba(239, 68, 68, 0.6)',  // Red (Cost)
+                            'rgba(248, 113, 113, 0.6)',// Light Red
+                            'rgba(34, 197, 94, 0.9)'   // Green (Profit)
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- View Logic ---
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            // Show selected section
+            document.getElementById(tabId + '-section').classList.remove('hidden');
+            
+            // Update Tab UI
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-b-3', 'text-orange-500', 'font-bold');
+                btn.classList.add('text-slate-500');
+            });
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-500');
+
+            // Resize Chart if needed
+            if(tabId === 'finance' && profitChart) {
+                profitChart.resize();
+            }
+        }
+
+        function updateChart(scenarioType) {
+            const data = scenarios[scenarioType];
+            
+            // Update Text UI
+            document.getElementById('display-revenue').innerText = (data.revenue / 10000).toLocaleString() + "만 원";
+            document.getElementById('display-cost').innerText = (data.cost / 10000).toLocaleString() + "만 원";
+            document.getElementById('display-profit').innerText = (data.profit / 10000).toLocaleString() + "만 원";
+            document.getElementById('display-growth').innerText = data.growth_text;
+            document.getElementById('display-margin').innerText = "마진율 " + data.margin;
+
+            // Update Toggle Button UI
+            if(scenarioType === 'bear') {
+                document.getElementById('btn-bear').className = "px-6 py-2 rounded-full text-sm font-bold transition-all bg-white text-slate-700 shadow-sm";
+                document.getElementById('btn-bull').className = "px-6 py-2 rounded-full text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
+            } else {
+                document.getElementById('btn-bear').className = "px-6 py-2 rounded-full text-sm font-bold transition-all text-slate-500 hover:text-slate-800";
+                document.getElementById('btn-bull').className = "px-6 py-2 rounded-full text-sm font-bold transition-all bg-white text-orange-600 shadow-sm";
+            }
+
+            // Update Chart Data
+            const chartData = [
+                data.revenue_pickup / 10000,
+                data.revenue_walkin / 10000,
+                (data.revenue * 0.7) / 10000, // 원가 70% 가정
+                (data.cost - (data.revenue * 0.7)) / 10000, // 고정비
+                data.profit / 10000
+            ];
+            
+            profitChart.data.datasets[0].data = chartData;
+            profitChart.update();
+        }
+
+        // --- Init ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initChart();
+        });
+
+    </script>
+</body>
+</html>
