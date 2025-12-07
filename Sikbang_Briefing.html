@@ -91,6 +91,7 @@
                 </div>
             </div>
 
+            <!-- Summary Cards -->
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- Competitor 1 -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
@@ -130,6 +131,107 @@
                         <li class="flex items-start"><i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2"></i> <span class="font-semibold text-white">배송비 Free (선주문 픽업)</span></li>
                         <li class="flex items-start"><i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2"></i> <span class="font-semibold text-white">ERP 자동 재고/수요 예측</span></li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- Detailed Comparison Table -->
+            <div class="mt-8">
+                <h3 class="text-xl font-bold text-slate-800 mb-4">Detailed Comparison</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
+                            <thead class="bg-slate-50 text-slate-500 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">구분</th>
+                                    <th class="px-6 py-4 font-bold">사이트명</th>
+                                    <th class="px-6 py-4 font-bold">핵심 특징 & BM</th>
+                                    <th class="px-6 py-4 font-bold">차별점 & 경쟁력</th>
+                                    <th class="px-6 py-4 font-bold">약점 (Pain Point)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-slate-700">콘텐츠/브랜드형</td>
+                                    <td class="px-6 py-4 text-slate-600">감자마켓 등</td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <ul class="list-disc list-inside">
+                                            <li>스토리텔링 (못난이 감자 → 빵)</li>
+                                            <li>로컬 식자재의 캐릭터화</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <p class="mb-1"><span class="font-bold text-green-600">팬덤:</span> 문화를 팜</p>
+                                        <p><span class="font-bold text-green-600">경험:</span> 오프라인 카페 연계</p>
+                                    </td>
+                                    <td class="px-6 py-4 text-red-500 bg-red-50/50">
+                                        <ul class="list-disc list-inside">
+                                            <li>단일 상품 의존도 높음</li>
+                                            <li>지속적 히트 상품 개발 압박</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-slate-700">B2B2C/공구형</td>
+                                    <td class="px-6 py-4 text-slate-600">장봐주는언니</td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <ul class="list-disc list-inside">
+                                            <li>인적 네트워크 (지역장 '언니')</li>
+                                            <li>밴드/카톡 기반 공구 진행</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <p class="mb-1"><span class="font-bold text-green-600">충성도:</span> 지역 밀착형</p>
+                                        <p><span class="font-bold text-green-600">가격:</span> 중간 유통 삭제</p>
+                                    </td>
+                                    <td class="px-6 py-4 text-red-500 bg-red-50/50">
+                                        <ul class="list-disc list-inside">
+                                            <li>시스템 부재 (수기 주문)</li>
+                                            <li>확장성 한계 (사람 의존)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-slate-700">큐레이션형</td>
+                                    <td class="px-6 py-4 text-slate-600">따뜻한자리<br>봉봉마켓 등</td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <ul class="list-disc list-inside">
+                                            <li>취향 큐레이션 (HMR/디저트)</li>
+                                            <li>"아무거나 안 팜" 전략</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-500">
+                                        <p class="mb-1"><span class="font-bold text-green-600">신뢰:</span> 탐색 비용 절감</p>
+                                        <p><span class="font-bold text-green-600">포지셔닝:</span> 선물용/프리미엄</p>
+                                    </td>
+                                    <td class="px-6 py-4 text-red-500 bg-red-50/50">
+                                        <ul class="list-disc list-inside">
+                                            <li>물류비 부담 (택배 기반)</li>
+                                            <li>차별화된 시스템 부재</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <!-- Sikbang Row Highlighted -->
+                                <tr class="bg-slate-50 border-t-2 border-orange-200">
+                                    <td class="px-6 py-4 font-bold text-orange-600">Sikbang (제안)</td>
+                                    <td class="px-6 py-4 font-bold text-slate-800">식빵 2.0</td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <ul class="list-disc list-inside">
+                                            <li><strong>무인 거점 + 시스템</strong></li>
+                                            <li>선주문 픽업 (O4O)</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <p class="mb-1"><span class="font-bold text-orange-600">비용 0:</span> 인건비/배송비 Zero</p>
+                                        <p><span class="font-bold text-orange-600">Tech:</span> ERP 자동화/수요예측</p>
+                                    </td>
+                                    <td class="px-6 py-4 text-blue-600 bg-blue-50/50">
+                                        <span class="text-xs font-bold px-2 py-1 bg-blue-100 rounded text-blue-700">SOLVED</span>
+                                        <span class="text-sm ml-1">기존 약점들을 시스템으로 해결</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
